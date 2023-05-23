@@ -8,12 +8,12 @@ pipeline {
   stages {
     stage('Status') {
       steps {
-        sh 'liquibase status --url="jdbc:mysql://mydb.crr9iqtjkrvn.us-east-1.rds.amazonaws.com:3306/mydb" --changeLogFile=my_app-wrapper.xml --username=root --password=Passw0rd'
+        sh 'liquibase status --url="jdbc:oracle:thin:@apexdb.crr9iqtjkrvn.us-east-1.rds.amazonaws.com:1521/apexdb" --changeLogFile=my_app-wrapper.xml --username=admin --password=Pakaya1981!'
       }
     }
     stage('Update') {
       steps {
-        sh 'liquibase update --url="jdbc:mysql://mydb.crr9iqtjkrvn.us-east-1.rds.amazonaws.com:3306/mydb" --changeLogFile=my_app-wrapper.xml --username=root --password=Passw0rd'
+        sh 'liquibase update --url="jdbc:oracle:thin:@apexdb.crr9iqtjkrvn.us-east-1.rds.amazonaws.com:1521/apexdb" --changeLogFile=my_app-wrapper.xml --username=admin --password=Pakaya1981!'
       }
     }
   }

@@ -1,0 +1,25 @@
+pipeline {
+  agent {
+    docker { image 'liquibase/liquibase:4.4.2' }
+  }
+  environment {
+    MARIADB_CREDS=credentials('mariadb-credentials')
+  }
+  stages {
+    stage('Status') {
+      steps {
+        sh 'liquibase status --url="jdbc:mysql://mydb.crr9iqtjkrvn.us-east-1.rds.amazonaws.com:3306/mydb" --changeLogFile=my_app-wrapper.xml --username=root --password=Passw0rd'
+      }
+    }
+    stage('Update') {
+      steps {
+        sh 'liquibase update --url="jdbc:mysql://mydb.crr9iqtjkrvn.us-east-1.rds.amazonaws.com:3306/mydb" --changeLogFile=my_app-wrapper.xml --username=root --password=Passw0rd'
+      }
+    }
+  }
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}
